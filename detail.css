@@ -1,0 +1,90 @@
+/* Modal Header Styling */
+.modal-header {
+    background-color: #007bff;
+    color: white;
+    border-bottom: none;
+}
+
+/* Modal Title */
+.modal-title {
+    font-size: 1.75rem;
+    font-weight: bold;
+}
+
+/* Close Button Style */
+.close {
+    color: white;
+    font-size: 1.5rem;
+    opacity: 1;
+}
+
+/* Modal Body Styling */
+.modal-body {
+    padding: 20px;
+}
+
+.modal-body h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.modal-body p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+/* Room Details List */
+.modal-body ul {
+    list-style: none;
+    padding: 0;
+    font-size: 1.1rem;
+}
+
+.modal-body ul li {
+    margin-bottom: 10px;
+}
+
+/* Modal title */
+.modal-title {
+    width: 100%;
+    text-align: center;
+    font-size: 1.75rem;
+    font-weight: bold;
+}
+
+.modal-header .close {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
+
+/* Card Styling for Facilities */
+.facility-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.facility-card:hover {
+    transform: translateY(-5px);
+}
+
+.facility-card img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+.facility-card .card-title {
+    font-size: 1.1rem;
+    margin-top: 5px;
+}
+
+/* Responsiveness for smaller screens */
+@media (max-width: 768px) {
+    .facility-card {
+        margin-bottom: 15px;
+    }
+}
