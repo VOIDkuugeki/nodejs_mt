@@ -46,8 +46,28 @@ function renderFeaturelItem(featureArray) {
   const featureContainer = document.getElementById("roomFeatures");
   featureContainer.innerHTML = ""; // Clear existing content
 
-  featureArray.forEach((feature) => {
-    // Extract the key part of the feature (e.g., "Bed" from "1 Bed")
+  // Create an array to hold the features in order
+  const orderedFeatures = [];
+
+  // Map beds, adults, children from the featureArray
+  if (featureArray[0] > 0) {
+    orderedFeatures.push(`${featureArray[0]} Bed${featureArray[0] > 1 ? 's' : ''}`);
+  }
+  if (featureArray[1] > 0) {
+    orderedFeatures.push(`${featureArray[1]} Adult${featureArray[1] > 1 ? 's' : ''}`);
+  }
+  if (featureArray[2] > 0) {
+    orderedFeatures.push(`${featureArray[2]} Child${featureArray[2] > 1 ? 'ren' : ''}`);
+  }
+
+  // Append any other features from the featureArray
+  if (featureArray.length > 3) {
+    const otherFeatures = featureArray.slice(3);
+    orderedFeatures.push(...otherFeatures);
+  }
+
+  // Render the features with icons
+  orderedFeatures.forEach((feature) => {
     const key = Object.keys(featureIcons).find((key) => feature.includes(key));
     const iconClass = featureIcons[key] || ""; // Get corresponding icon class
 
@@ -97,7 +117,7 @@ async function fetchRoomDetails(roomId) {
       data.description || "No description available";
 
     // Render room features
-    renderFeaturelItem(data.features);
+    renderFeaturelItem([data.beds, data.max_adults, data.max_children, ...data.features]);
 
     // Render room facilities
     renderFacilityItem(data.facilities);
