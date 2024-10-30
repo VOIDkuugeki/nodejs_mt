@@ -1,62 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Room Details</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="detail.css">
 </head>
+
 <body>
+    <button onclick="fetchRoomDetails(1)">Open Room 1</button>
+    <button onclick="fetchRoomDetails(2)">Open Room 2</button>
 
-    <!-- Button to Open the Modal -->
-    <button id="openModalBtn" class="btn btn-primary">View Room Details</button>
-
-    <!-- The Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="roomDetailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2><i class="fa fa-bullhorn"></i> Standard Room</h2>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" onclick="closeModal()">
-                        <span aria-hidden="true">&times;</span>
+                    <h2 id="roomType" class="center-title"></h2>
+                    <button type="button" class="btn btn-default btn-close" onclick="closeModal()">
+                        <i class="fa fa-times"></i>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>This is a description of the standard room.</p>
+                    <h4>Room Description</h4>
+                    <div id="roomDescription"></div>
                     <h4>Room Details</h4>
-                    <ul>
-                        <li>Beds: 2</li>
-                        <li>Adults: 2</li>
-                        <li>Children: 1</li>
-                    </ul>
+                    <div id="roomDetails"></div>
                     <h4>Room Facilities</h4>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="container">
-                                <img src="wifi-icon.png" alt="Wi-Fi" class="img-fluid">
-                                <span>Free Wi-Fi</span>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="container">
-                                <img src="ac-icon.png" alt="Air Conditioning" class="img-fluid">
-                                <span>Air Conditioning</span>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="container">
-                                <img src="tv-icon.png" alt="Flat Screen TV" class="img-fluid">
-                                <span>Flat Screen TV</span>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="container">
-                                <img src="minibar-icon.png" alt="Mini Bar" class="img-fluid">
-                                <span>Mini Bar</span>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="row" id="roomFacilities"></div>
                 </div>
             </div>
         </div>
@@ -65,6 +38,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="detail.js"></script>
+    <script src="data.js"></script>
 </body>
+
 </html>
