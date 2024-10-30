@@ -14,11 +14,7 @@ async function fetchRooms() {
             <img src="${room.room_image}" class="card-img-top" alt="${room.room_type}">
             <div class="card-body">
               <h5 class="card-title">${room.room_type}</h5>
-              <p class="card-text"><strong>Status:</strong> ${room.status}</p>
-              <p class="card-text"><strong>Price:</strong> ${room.price}</p>
-              <p class="card-text"><strong>Beds:</strong> ${room.bed_count}</p>
-              <p class="card-text"><strong>Features:</strong> ${room.features.join(', ')}</p>
-              <p class="card-text"><strong>Facilities:</strong> ${room.facilities.join(', ')}</p>
+              <p class="card-text"><strong>Price:</strong> $${room.price}/per night</p>
               <button class="btn btn-primary w-100" onClick="openBookingModal(${room.id})">Book Now</button>
             </div>
           </div>
