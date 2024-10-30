@@ -4,8 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hotel Booking</title>
+  <title>Hotel</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="details.css">
   <link rel="stylesheet" href="booking.css">
 </head>
 
@@ -87,6 +88,27 @@
       </div>
     </div>
   </section>
+
+  <!-- Room Details Modal -->
+  <div class="modal fade detail-modal" id="roomDetailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="roomType"></h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h4>Room Description</h4>
+          <div id="roomDescription"></div>
+          <h4>Room Features</h4>
+          <div id="roomFeatures"></div>
+          <h4>Room Facilities</h4>
+          <div id="roomFacilities"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Booking Modal -->
   <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
@@ -220,8 +242,9 @@
     </div>
   </div>
 
-  <script src="booking.js"></script>
   <script src="rooms.js"></script>
+  <script src="booking.js"></script>
+  <script src="details.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

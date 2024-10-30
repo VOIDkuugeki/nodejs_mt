@@ -135,37 +135,53 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Process to the billing form
-  document.getElementById('checkAvailability').addEventListener('submit', function (event) {
-    event.preventDefault(); // Prevent the form from submitting normally
+  document
+    .getElementById("checkAvailability")
+    .addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent the form from submitting normally
 
-    // Get the selected values
-    const checkinDate = new Date(document.getElementById('checkinDate').value);
-    const checkoutDate = new Date(document.getElementById('checkoutDate').value);
-    const adults = parseInt(document.getElementById('adultCount').value) || 0;
-    const children = parseInt(document.getElementById('childrenCount').value) || 0;
+      // Get the selected values
+      const checkinDate = new Date(
+        document.getElementById("checkinDate").value
+      );
+      const checkoutDate = new Date(
+        document.getElementById("checkoutDate").value
+      );
+      const adults = parseInt(document.getElementById("adultCount").value) || 0;
+      const children =
+        parseInt(document.getElementById("childrenCount").value) || 0;
 
-    // Calculate the number of stay days
-    const stayDays = (checkoutDate - checkinDate) / (1000 * 60 * 60 * 24);
-    const totalGuests = adults + children;
+      // Calculate the number of stay days
+      const stayDays = (checkoutDate - checkinDate) / (1000 * 60 * 60 * 24);
+      const totalGuests = adults + children;
 
-    // Calculate service fee based on selected extra services
-    let serviceFee = 0;
-    document.querySelectorAll('#extraServiceOptions input[type="checkbox"]:checked').forEach((checkbox) => {
-      const service = checkbox.value;
-      serviceFee += extraServicePrice[service] || 0;
+      // Calculate service fee based on selected extra services
+      let serviceFee = 0;
+      document
+        .querySelectorAll('#extraServiceOptions input[type="checkbox"]:checked')
+        .forEach((checkbox) => {
+          const service = checkbox.value;
+          serviceFee += extraServicePrice[service] || 0;
+        });
+
+      // Update billing information in the Complete Booking section
+      document.getElementById("arrivalDate").value =
+        checkinDate.toLocaleDateString();
+      document.getElementById("departureDate").value =
+        checkoutDate.toLocaleDateString();
+      document.getElementById("stayDays").value = stayDays;
+      document.getElementById("guestCount").value = totalGuests;
+      document.getElementById("serviceFee").value = `${serviceFee}$`;
+      document.getElementById("totalFee").value = `${
+        serviceFee + stayDays * 100
+      }$`; // Assuming a flat rate of 100$ per day for the room
+
+      // Show the billing section by collapsing it
+      const billingCollapse = new bootstrap.Collapse(
+        document.getElementById("collapseTwo"),
+        {
+          toggle: true,
+        }
+      );
     });
-
-    // Update billing information in the Complete Booking section
-    document.getElementById('arrivalDate').value = checkinDate.toLocaleDateString();
-    document.getElementById('departureDate').value = checkoutDate.toLocaleDateString();
-    document.getElementById('stayDays').value = stayDays;
-    document.getElementById('guestCount').value = totalGuests;
-    document.getElementById('serviceFee').value = `${serviceFee}$`;
-    document.getElementById('totalFee').value = `${serviceFee + (stayDays * 100)}$`; // Assuming a flat rate of 100$ per day for the room
-
-    // Show the billing section by collapsing it
-    const billingCollapse = new bootstrap.Collapse(document.getElementById('collapseTwo'), {
-      toggle: true
-    });
-  });
 });
