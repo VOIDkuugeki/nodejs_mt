@@ -1,8 +1,8 @@
 // Room API
 const roomAPI = "https://6720c39598bbb4d93ca5df7a.mockapi.io/T_room"; // Replace with your actual API URL
 
-// Icons for room details
-const detailIcons = {
+// Icons for room features
+const featureIcons = {
   Adult: "fas fa-user",
   Child: "fas fa-child",
   Bed: "fas fa-bed",
@@ -41,35 +41,35 @@ const facilityImages = {
     "https://restinn.webinane.com/wp-content/uploads/2017/08/wsi-imageoptim-8-1.jpg",
 };
 
-// Function to render room details with icons
-function renderDetailIcons(detailsArray) {
-  const roomDetailsContainer = document.getElementById("roomDetails");
-  roomDetailsContainer.innerHTML = ""; // Clear existing content
+// Function to render room features with icons
+function renderFeaturelItem(featureArray) {
+  const featureContainer = document.getElementById("roomFeatures");
+  featureContainer.innerHTML = ""; // Clear existing content
 
-  detailsArray.forEach((detail) => {
-    // Extract the key part of the detail (e.g., "Bed" from "1 Bed")
-    const key = Object.keys(detailIcons).find((key) => detail.includes(key));
-    const iconClass = detailIcons[key] || ""; // Get corresponding icon class
+  featureArray.forEach((feature) => {
+    // Extract the key part of the feature (e.g., "Bed" from "1 Bed")
+    const key = Object.keys(featureIcons).find((key) => feature.includes(key));
+    const iconClass = featureIcons[key] || ""; // Get corresponding icon class
 
-    // Create the HTML structure for the detail with icon
-    const detailDiv = document.createElement("div");
-    detailDiv.innerHTML = `<i class="${iconClass}"></i> ${detail}`;
-    roomDetailsContainer.appendChild(detailDiv);
+    // Create the HTML structure for the feature with icon
+    const featureDiv = document.createElement("div");
+    featureDiv.innerHTML = `<i class="${iconClass} icon-spacing"></i> ${feature}`;
+    featureContainer.appendChild(featureDiv);
   });
 }
 
 // Function to render room facilities with images and icons
-function renderFacilityImages(facilitiesArray) {
-  const facilitiesContainer = document.getElementById("roomFacilities");
-  facilitiesContainer.innerHTML = ""; // Clear existing facilities
+function renderFacilityItem(facilitysArray) {
+  const facilityContainer = document.getElementById("roomFacilities");
+  facilityContainer.innerHTML = ""; // Clear existing facilities
 
-  facilitiesArray.forEach((facility) => {
+  facilitysArray.forEach((facility) => {
     const facilityDiv = document.createElement("div");
-    facilityDiv.classList.add("col-md-3", "facility-card"); // Add any additional classes for styling
+    facilityDiv.classList.add("col-md-3", "facility-card");
 
     // Get the corresponding image URL and icon class from the mappings
     const imgSrc = facilityImages[facility] || null;
-    const iconClass = facilityIcons[facility] || ""; // Get corresponding icon class
+    const iconClass = facilityIcons[facility] || "";
 
     facilityDiv.innerHTML = `
               <div class="facility-container">
@@ -80,7 +80,7 @@ function renderFacilityImages(facilitiesArray) {
               </div>
           `;
 
-    facilitiesContainer.appendChild(facilityDiv);
+    facilityContainer.appendChild(facilityDiv);
   });
 }
 
@@ -96,19 +96,19 @@ async function fetchRoomDetails(roomId) {
     document.getElementById("roomDescription").textContent =
       data.description || "No description available";
 
-    // Render room details
-    renderDetailIcons(data.with);
+    // Render room features
+    renderFeaturelItem(data.features);
 
-    // Render room facilities if needed (example code)
-    renderFacilityImages(data.facilities);
+    // Render room facilities
+    renderFacilityItem(data.facilities);
 
-    // Show the content on the modal for room details
+    // Show the content on the modal for room features
     const modal = new bootstrap.Modal(
       document.getElementById("roomDetailModal")
     );
     modal.show();
   } catch (error) {
-    console.error("Error fetching room details:", error);
+    console.error("Error fetching room features:", error);
   }
 }
 

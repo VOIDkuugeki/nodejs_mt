@@ -1,90 +1,100 @@
-/* Modal Header Styling */
+
+/* Detail Modal */
+.modal-dialog {
+    max-width: 1000px;
+}
+
 .modal-header {
-    background-color: #007bff;
+    background-color: rgb(240, 255, 250);
     color: white;
-    border-bottom: none;
+    padding: 10px;
 }
 
-/* Modal Title */
-.modal-title {
-    font-size: 1.75rem;
-    font-weight: bold;
-}
-
-/* Close Button Style */
-.close {
-    color: white;
-    font-size: 1.5rem;
-    opacity: 1;
-}
-
-/* Modal Body Styling */
-.modal-body {
-    padding: 20px;
-}
-
-.modal-body h2 {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
-    color: #333;
-}
-
-.modal-body p {
-    font-size: 1.1rem;
-    margin-bottom: 20px;
-}
-
-/* Room Details List */
-.modal-body ul {
-    list-style: none;
-    padding: 0;
-    font-size: 1.1rem;
-}
-
-.modal-body ul li {
-    margin-bottom: 10px;
-}
-
-/* Modal title */
-.modal-title {
-    width: 100%;
+.modal-header h2 {
+    color: black;
+    font-size: 24px;
     text-align: center;
-    font-size: 1.75rem;
-    font-weight: bold;
+    width: 100%;
 }
 
-.modal-header .close {
+.btn-close {
+    background-color: rgb(0, 255, 170);
+    width: 40px;
+    height: 40px;
+    color: whitesmoke;
     position: absolute;
-    right: 15px;
-    top: 15px;
+    right: -20px;
+    cursor: pointer;
 }
 
-/* Card Styling for Facilities */
+.modal-body h4 {
+    font-size: 20px;
+}
+
+.center-title {
+    text-align: center;
+    width: 100%;
+}
+
+#roomDescription, #roomFeatures, #roomFacilities {
+    margin-bottom: 15px;
+}
+
+#roomFeatures {
+    display: flex;                
+    flex-wrap: wrap;             
+    justify-content: space-around;
+}
+
+#roomFeatures div {
+    margin: 5px;                 
+    display: flex;
+    align-items: center; 
+}
+
+/* Facility Card Styles */
+#roomFacilities {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+}
+
 .facility-card {
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 10px 5px
 }
 
-.facility-card:hover {
-    transform: translateY(-5px);
+.facility-card span {
+    white-space: pre;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 5px;
+    width: 100%;
+    background-color: aquamarine;
 }
 
 .facility-card img {
-    width: 50px;
-    height: 50px;
-    margin-bottom: 10px;
+    width: 300px;
+    height: 200px;
 }
 
-.facility-card .card-title {
-    font-size: 1.1rem;
-    margin-top: 5px;
+.icon-spacing {
+    margin-right: 8px;
 }
 
-/* Responsiveness for smaller screens */
+/* Responsive Design */
 @media (max-width: 768px) {
     .facility-card {
-        margin-bottom: 15px;
+        width: 100%;
+    }
+
+    .modal-body {
+        padding: 10px;
+    }
+
+    .modal-dialog {
+        max-width: 90%;
     }
 }
