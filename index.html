@@ -2,43 +2,250 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Room Details</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="details.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="details.css">
+  <link rel="stylesheet" href="booking.css">
 </head>
 
 <body>
-    <button onclick="fetchRoomDetails(1)">Open Room 1</button>
-    <button onclick="fetchRoomDetails(2)">Open Room 2</button>
 
-    <div class="modal fade" id="roomDetailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 id="roomType"></h2>
-                    <button type="button" class="btn btn-default btn-close" onclick="closeModal()">
-                        <i class="fa fa-times"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <h4>Room Description</h4>
-                    <div id="roomDescription"></div>
-                    <h4>Room Features</h4>
-                    <div id="roomFeatures"></div>
-                    <h4>Room Facilities</h4>
-                    <div id="roomFacilities"></div>
-                </div>
-            </div>
-        </div>
+  <!-- Header Section -->
+  <header class="bg-warning text-white py-2">
+    <div class="container d-flex justify-content-between align-items-center">
+      <div>
+        <h1 class="h3">Hotel Booking</h1>
+      </div>
+      <nav class="navbar">
+        <a href="#" class="text-white me-3">Home</a>
+        <a href="#" class="text-white me-3">Rooms</a>
+        <a href="#" class="text-white me-3">Gallery</a>
+        <a href="#" class="text-white me-3">Blog</a>
+        <a href="#" class="text-white me-3">About Us</a>
+        <a href="#" class="text-white me-3">Contact Us</a>
+      </nav>
     </div>
+  </header>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="details.js"></script>
+  <!-- Main Banner Section -->
+  <section class="banner text-white text-center py-5"
+    style="background-image: url('https://restinn.webinane.com/wp-content/uploads/2022/02/restinn-slide.jpg'); background-size: cover;">
+    <div class="container">
+      <h1 class="display-4">The Best Hotel & Restaurant</h1>
+      <p class="lead">Deals on Discounts, Special Member Prices, Instant Coupons!</p>
+      <button class="btn btn-warning btn-lg mt-3">Book Now</button>
+    </div>
+  </section>
+
+  <!-- Reservation Form -->
+  <section class="reservation py-5 bg-light">
+    <div class="container">
+      <h2 class="text-center mb-4">Make A Reservation</h2>
+      <form class="row g-3 justify-content-center">
+        <div class="col-md-2">
+          <input type="date" class="form-control" placeholder="Check-in" name="checkin">
+        </div>
+        <div class="col-md-2">
+          <input type="date" class="form-control" placeholder="Check-out" name="checkout">
+        </div>
+        <div class="col-md-2">
+          <input type="number" class="form-control" placeholder="Adults" name="adults">
+        </div>
+        <div class="col-md-2">
+          <input type="number" class="form-control" placeholder="Kids" name="kids">
+        </div>
+        <div class="col-md-2">
+          <select class="form-select" name="room-type">
+            <option>Select Room Type</option>
+            <option>Family Room</option>
+            <option>Standard Room</option>
+            <option>Deluxe Room</option>
+            <option>Luxury Room</option>
+          </select>
+        </div>
+        <div class="col-md-2 text-center">
+          <button type="submit" class="btn btn-warning w-100">Search Now</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Room Highlights -->
+  <section class="room-highlights py-5">
+    <div class="container">
+      <h2 class="text-center mb-4">Room Highlights</h2>
+      <div class="d-flex justify-content-center mb-4">
+        <button class="btn btn-outline-warning mx-1">All Rooms</button>
+        <button class="btn btn-outline-warning mx-1">Double Room</button>
+        <button class="btn btn-outline-warning mx-1">Family Room</button>
+        <button class="btn btn-outline-warning mx-1">Luxury Room</button>
+        <button class="btn btn-outline-warning mx-1">Single Room</button>
+      </div>
+      <div class="row" id="room-cards">
+        <!-- Cards will be inserted here -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Room Details Modal -->
+  <div class="modal fade detail-modal" id="roomDetailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="roomType"></h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h4>Room Description</h4>
+          <div id="roomDescription"></div>
+          <h4>Room Features</h4>
+          <div id="roomFeatures"></div>
+          <h4>Room Facilities</h4>
+          <div id="roomFacilities"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Booking Modal -->
+  <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="bookingModalLabel">Booking Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div id="roomInfo" class="mb-4">
+            <!-- Room information will be displayed here -->
+          </div>
+          <div class="accordion" id="bookingAccordion">
+
+            <!-- Check Availability -->
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingAvailability">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                  aria-expanded="true" aria-controls="collapseOne">
+                  Check Availability
+                </button>
+              </h2>
+              <form id="checkAvailability">
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                  data-bs-parent="#bookingAccordion">
+                  <div class="accordion-body">
+
+                    <!-- Date Selection -->
+                    <div class="mb-3">
+                      <label for="checkinDate" class="form-label"><strong>Check-in Date</strong></label>
+                      <input type="date" id="checkinDate" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="checkoutDate" class="form-label"><strong>Check-out Date</strong></label>
+                      <input type="date" id="checkoutDate" class="form-control" required>
+                    </div>
+
+                    <!-- Select Adults and Children -->
+                    <div class="mb-3">
+                      <label for="adultCount" class="form-label"><strong>Adults</strong></label>
+                      <select id="adultCount" class="form-select" required></select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="childrenCount" class="form-label"><strong>Children</strong></label>
+                      <select id="childrenCount" class="form-select" required></select>
+                    </div>
+
+                    <!-- Additional Services -->
+                    <div id="extraServiceOptions"></div>
+
+                  </div>
+                </div>
+                <button id="processBtnBookingModal" type="submit" class="btn btn-warning">Confirm</button>
+              </form>
+            </div>
+
+            <!-- Complete Booking -->
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingBilling">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  Complete Booking
+                </button>
+              </h2>
+              <form id="confirmBill">
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                  data-bs-parent="#bookingAccordion">
+                  <div class="accordion-body">
+                    <div class="row">
+                      <!-- Customer Info Section -->
+                      <div class="col-md-6">
+                        <h5>Customer Information</h5>
+                        <div class="mb-3">
+                          <label for="customerName" class="form-label">Name</label>
+                          <input type="text" class="form-control" id="customerName" required>
+                        </div>
+                        <div class="mb-3">
+                          <label for="customerEmail" class="form-label">Email</label>
+                          <input type="email" class="form-control" id="customerEmail" required>
+                        </div>
+                        <div class="mb-3">
+                          <label for="customerPhone" class="form-label">Phone</label>
+                          <input type="tel" class="form-control" id="customerPhone" required>
+                        </div>
+                        <div class="mb-3">
+                          <label for="customerAddress" class="form-label">Address</label>
+                          <input type="text" class="form-control" id="customerAddress" required>
+                        </div>
+                      </div>
+
+                      <!-- Billing Info Section -->
+                      <div class="col-md-6">
+                        <h5>Billing Information</h5>
+                        <div class="mb-3">
+                          <label for="arrivalDate" class="form-label">Arrival Date</label>
+                          <input type="text" class="form-control" id="arrivalDate" disabled>
+                        </div>
+                        <div class="mb-3">
+                          <label for="departureDate" class="form-label">Departure Date</label>
+                          <input type="text" class="form-control" id="departureDate" disabled>
+                        </div>
+                        <div class="mb-3">
+                          <label for="stayDays" class="form-label">Stay Days</label>
+                          <input type="text" class="form-control" id="stayDays" disabled>
+                        </div>
+                        <div class="mb-3">
+                          <label for="guestCount" class="form-label">Number of Guests</label>
+                          <input type="text" class="form-control" id="guestCount" disabled>
+                        </div>
+                        <div class="mb-3">
+                          <label for="serviceFee" class="form-label">Service Fee</label>
+                          <input type="text" class="form-control" id="serviceFee" disabled>
+                        </div>
+                        <div class="mb-3">
+                          <label for="totalFee" class="form-label">Total Fee</label>
+                          <input type="text" class="form-control" id="totalFee" disabled>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <button id="confirmBtnBookingModal" type="submit" class="btn btn-warning">Confirm</button>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="rooms.js"></script>
+  <script src="booking.js"></script>
+  <script src="details.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

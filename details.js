@@ -1,6 +1,3 @@
-// Room API
-const roomAPI = "https://6720c39598bbb4d93ca5df7a.mockapi.io/T_room"; // Replace with your actual API URL
-
 // Icons for room features
 const featureIcons = {
   Adult: "fas fa-user",
@@ -51,13 +48,19 @@ function renderFeaturelItem(featureArray) {
 
   // Map beds, adults, children from the featureArray
   if (featureArray[0] > 0) {
-    orderedFeatures.push(`${featureArray[0]} Bed${featureArray[0] > 1 ? 's' : ''}`);
+    orderedFeatures.push(
+      `${featureArray[0]} Bed${featureArray[0] > 1 ? "s" : ""}`
+    );
   }
   if (featureArray[1] > 0) {
-    orderedFeatures.push(`${featureArray[1]} Adult${featureArray[1] > 1 ? 's' : ''}`);
+    orderedFeatures.push(
+      `${featureArray[1]} Adult${featureArray[1] > 1 ? "s" : ""}`
+    );
   }
   if (featureArray[2] > 0) {
-    orderedFeatures.push(`${featureArray[2]} Child${featureArray[2] > 1 ? 'ren' : ''}`);
+    orderedFeatures.push(
+      `${featureArray[2]} Child${featureArray[2] > 1 ? "ren" : ""}`
+    );
   }
 
   // Append any other features from the featureArray
@@ -117,7 +120,12 @@ async function fetchRoomDetails(roomId) {
       data.description || "No description available";
 
     // Render room features
-    renderFeaturelItem([data.beds, data.max_adults, data.max_children, ...data.features]);
+    renderFeaturelItem([
+      data.beds,
+      data.max_adults,
+      data.max_children,
+      ...data.features,
+    ]);
 
     // Render room facilities
     renderFacilityItem(data.facilities);
@@ -130,23 +138,4 @@ async function fetchRoomDetails(roomId) {
   } catch (error) {
     console.error("Error fetching room features:", error);
   }
-}
-
-// Function to close the modal
-function closeModal() {
-  const modalElement = document.getElementById("roomDetailModal");
-
-  // Remove the 'show' class to hide the modal
-  modalElement.classList.remove("show");
-
-  // Remove 'display' and 'aria-hidden' attributes to fully close
-  modalElement.style.display = "none";
-  modalElement.setAttribute("aria-hidden", "true");
-
-  // Remove backdrop (if present)
-  document.querySelector(".modal-backdrop").remove();
-
-  // Remove 'modal-open' class from body to reset scrolling
-  document.body.classList.remove("modal-open");
-  document.body.style.removeProperty("padding-right");
 }
