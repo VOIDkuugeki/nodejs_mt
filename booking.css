@@ -1,0 +1,7 @@
+/* Disable focus effect on form-control and form-select */
+.form-control:focus,
+.form-select:focus {
+  outline: none; /* Remove the default outline */
+  box-shadow: none; /* Remove the box-shadow effect */
+  border-color: #ced4da; /* Keep the default border color */
+}
