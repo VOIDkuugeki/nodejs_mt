@@ -1,3 +1,5 @@
+const roomAPI = "https://6720c39598bbb4d93ca5df7a.mockapi.io/T_room";
+
 document.addEventListener("DOMContentLoaded", () => {
   const allRoomsBtn = document.getElementById("allRoomsBtn");
   const doubleRoomBtn = document.getElementById("doubleRoomBtn");
@@ -10,9 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Fetch rooms data from API
   async function fetchRooms() {
     try {
-      const response = await fetch(
-        "https://6720c39598bbb4d93ca5df7a.mockapi.io/T_room"
-      );
+      const response = await fetch(roomAPI);
       rooms = await response.json();
       displayRooms("All Rooms");
     } catch (error) {
@@ -37,12 +37,14 @@ document.addEventListener("DOMContentLoaded", () => {
         break;
       case "Family Room":
         filteredRooms = rooms.filter(
-          (room) => room.room_type === "Family Room" || room.room_type === "Standard"
+          (room) =>
+            room.room_type === "Family Room" || room.room_type === "Standard"
         ); // Family and Standard rooms
         break;
       case "Luxury Room":
         filteredRooms = rooms.filter(
-          (room) => room.room_type === "Deluxe Room" || room.room_type === "Luxury"
+          (room) =>
+            room.room_type === "Deluxe Room" || room.room_type === "Luxury"
         ); // Deluxe and Luxury rooms
         break;
       case "All Rooms":

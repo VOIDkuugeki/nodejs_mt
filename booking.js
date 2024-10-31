@@ -1,5 +1,6 @@
 const guestAPI = "https://6720c7ef98bbb4d93ca5fa06.mockapi.io/T_guest";
 const billAPI = "https://6720c7ef98bbb4d93ca5fa06.mockapi.io/T_billing";
+const bookingAPI = "https://6720c39598bbb4d93ca5df7a.mockapi.io/T_booking";
 
 const extraServicePrice = {
   "Car & ATV Rental": 60,
@@ -41,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const room = await response.json(); // Move this line here to ensure 'room' is declared properly
       console.log("Room details:", room); // Log the room details
-      
+
       roomPrice = room.price; // Store the room price for later use
 
       displayRoomInfo(room);
@@ -60,13 +61,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const roomInfoContainer = document.getElementById("roomInfo");
     roomInfoContainer.innerHTML = `
       <h5><strong>${room.room_type}</strong></h5>
-      <p>${room.beds} Bed(s), ${room.max_adults} Adult(s), ${room.max_children} Child(ren)</p>
+      <p>${room.beds} Bed(s), ${room.max_adults} Adult(s), ${
+      room.max_children
+    } Child(ren)</p>
       <p>With ${room.features.join(", ")}</p>
     `;
   }
 
   function displayExtraServices() {
-    const extraServiceContainer = document.getElementById("extraServiceOptions");
+    const extraServiceContainer = document.getElementById(
+      "extraServiceOptions"
+    );
     extraServiceContainer.innerHTML = `
       <strong>Select Additional Service:</strong>
       ${Object.keys(extraServicePrice)
@@ -118,114 +123,168 @@ document.addEventListener("DOMContentLoaded", () => {
     // Format the date to YYYY-MM-DD for the input field
     const formattedMinCheckinDate = new Date(today);
     formattedMinCheckinDate.setDate(today.getDate() + 1);
-    checkinDateInput.setAttribute("min", formattedMinCheckinDate.toISOString().split("T")[0]);
-    checkoutDateInput.setAttribute("min", formattedMinCheckinDate.toISOString().split("T")[0]);
+    checkinDateInput.setAttribute(
+      "min",
+      formattedMinCheckinDate.toISOString().split("T")[0]
+    );
+    checkoutDateInput.setAttribute(
+      "min",
+      formattedMinCheckinDate.toISOString().split("T")[0]
+    );
 
     // Update checkout min date based on selected check-in date
     checkinDateInput.addEventListener("change", function () {
       const selectedCheckinDate = new Date(checkinDateInput.value);
       selectedCheckinDate.setDate(selectedCheckinDate.getDate() + 1); // Minimum stay of 1 night
-      const formattedMinCheckoutDate = selectedCheckinDate.toISOString().split("T")[0];
+      const formattedMinCheckoutDate = selectedCheckinDate
+        .toISOString()
+        .split("T")[0];
       checkoutDateInput.setAttribute("min", formattedMinCheckoutDate);
     });
   }
 
   // Process to the billing form
-  document.getElementById("checkAvailability").addEventListener("submit", function (event) {
-    event.preventDefault(); // Prevent the form from submitting normally
+  document
+    .getElementById("checkAvailability")
+    .addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent the form from submitting normally
 
-    // Get the selected values
-    const checkinDate = new Date(document.getElementById("checkinDate").value);
-    const checkoutDate = new Date(document.getElementById("checkoutDate").value);
-    const adults = parseInt(document.getElementById("adultCount").value) || 0;
-    const children = parseInt(document.getElementById("childrenCount").value) || 0;
+      // Get the selected values
+      const checkinDate = new Date(
+        document.getElementById("checkinDate").value
+      );
+      const checkoutDate = new Date(
+        document.getElementById("checkoutDate").value
+      );
+      const adults = parseInt(document.getElementById("adultCount").value) || 0;
+      const children =
+        parseInt(document.getElementById("childrenCount").value) || 0;
 
-    // Calculate the number of stay days
-    const stayDays = (checkoutDate - checkinDate) / (1000 * 60 * 60 * 24);
-    const totalGuests = adults + children;
+      // Calculate the number of stay days
+      const stayDays = (checkoutDate - checkinDate) / (1000 * 60 * 60 * 24);
+      const totalGuests = adults + children;
 
-    // Calculate service fee based on selected extra services
-    let serviceFee = 0;
-    document.querySelectorAll('#extraServiceOptions input[type="checkbox"]:checked').forEach((checkbox) => {
-      const service = checkbox.value;
-      serviceFee += extraServicePrice[service] || 0;
+      // Calculate service fee based on selected extra services
+      let serviceFee = 0;
+      document
+        .querySelectorAll('#extraServiceOptions input[type="checkbox"]:checked')
+        .forEach((checkbox) => {
+          const service = checkbox.value;
+          serviceFee += extraServicePrice[service] || 0;
+        });
+
+      // Calculate total fee (room price * stayDays + serviceFee)
+      const totalFee = roomPrice * stayDays + serviceFee;
+
+      // Update billing information in the Complete Booking section
+      document.getElementById("arrivalDate").value =
+        checkinDate.toLocaleDateString();
+      document.getElementById("departureDate").value =
+        checkoutDate.toLocaleDateString();
+      document.getElementById("stayDays").value = stayDays;
+      document.getElementById("guestCount").value = totalGuests;
+      document.getElementById("serviceFee").value = `$${serviceFee}`; // Show $ symbol
+      document.getElementById("totalFee").value = `$${totalFee}`; // Show $ symbol
+
+      // Show the billing section by collapsing it
+      const billingCollapse = new bootstrap.Collapse(
+        document.getElementById("collapseTwo"),
+        {
+          toggle: true,
+        }
+      );
     });
-
-    // Calculate total fee (room price * stayDays + serviceFee)
-    const totalFee = roomPrice * stayDays + serviceFee;
-
-    // Update billing information in the Complete Booking section
-    document.getElementById("arrivalDate").value = checkinDate.toLocaleDateString();
-    document.getElementById("departureDate").value = checkoutDate.toLocaleDateString();
-    document.getElementById("stayDays").value = stayDays;
-    document.getElementById("guestCount").value = totalGuests;
-    document.getElementById("serviceFee").value = `$${serviceFee}`; // Show $ symbol
-    document.getElementById("totalFee").value = `$${totalFee}`; // Show $ symbol
-
-    // Show the billing section by collapsing it
-    const billingCollapse = new bootstrap.Collapse(document.getElementById("collapseTwo"), {
-      toggle: true,
-    });
-  });
 
   // Event listener for the confirm billing form
-  document.getElementById("confirmBill").addEventListener("submit", function (event) {
-    event.preventDefault(); // Prevent the form from submitting normally
+  document
+    .getElementById("confirmBill")
+    .addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent the form from submitting normally
 
-    // Gather customer info
-    const customerInfo = {
-      name: document.getElementById("customerName").value,
-      email: document.getElementById("customerEmail").value,
-      phone: document.getElementById("customerPhone").value,
-      address: document.getElementById("customerAddress").value,
-    };
+      // Gather customer info
+      const customerInfo = {
+        name: document.getElementById("customerName").value,
+        email: document.getElementById("customerEmail").value,
+        phone: document.getElementById("customerPhone").value,
+        address: document.getElementById("customerAddress").value,
+      };
 
-    // Gather billing info
-    const billingInfo = {
-      arrivalDate: document.getElementById("arrivalDate").value,
-      departureDate: document.getElementById("departureDate").value,
-      stayDays: parseInt(document.getElementById("stayDays").value),
-      guestCount: parseInt(document.getElementById("guestCount").value),
-      serviceFee: parseFloat(document.getElementById("serviceFee").value.replace("$", "")), // Strip $ for API submission
-      totalFee: parseFloat(document.getElementById("totalFee").value.replace("$", "")), // Strip $ for API submission
-    };
+      // Gather billing info
+      const billingInfo = {
+        arrivalDate: document.getElementById("arrivalDate").value,
+        departureDate: document.getElementById("departureDate").value,
+        stayDays: parseInt(document.getElementById("stayDays").value),
+        guestCount: parseInt(document.getElementById("guestCount").value),
+        serviceFee: parseFloat(
+          document.getElementById("serviceFee").value.replace("$", "")
+        ), // Strip $ for API submission
+        totalFee: parseFloat(
+          document.getElementById("totalFee").value.replace("$", "")
+        ), // Strip $ for API submission
+      };
 
-    // Post customer info to the guest API
-    fetch(guestAPI, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(customerInfo),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json(); // Return the customer data including customerId
+      // Gather booking details
+      const bookingDetails = {
+        arrivalDate: document.getElementById("arrivalDate").value,
+        departureDate: document.getElementById("departureDate").value,
+        stayDays: parseInt(document.getElementById("stayDays").value),
+        adultCount: parseInt(document.getElementById("adultCount").value),
+        childCount: parseInt(document.getElementById("childrenCount").value),
+      };
+
+      // Post customer info to the guest API
+      fetch(guestAPI, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(customerInfo),
       })
-      .then((data) => {
-        // Once the customer info is saved, proceed to save billing info
-        billingInfo.id = data.id; // Attach the customerId to the billing info
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json(); // Return the customer data including customerId
+        })
+        .then((data) => {
+          // Attach the customerId to billing info and booking details
+          billingInfo.id = data.id;
+          bookingDetails.customerId = data.id; // Associate customer ID with booking
 
-        // Post billing info to the billing API
-        return fetch(billAPI, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(billingInfo),
+          // Post billing info to the billing API
+          return fetch(billAPI, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(billingInfo),
+          });
+        })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then(() => {
+          // Post booking details to the booking API
+          return fetch(bookingAPI, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(bookingDetails),
+          });
+        })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          alert("Booking confirmed successfully!");
+          // Optionally close the modal or reset the form here
+        })
+        .catch((error) => {
+          console.error("Error:", error);
         });
-      })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        alert("Booking confirmed successfully!");
-        // Optionally close the modal or reset the form here
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  });
+    });
 });
