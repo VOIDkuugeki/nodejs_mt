@@ -3,30 +3,31 @@
   max-width: 1000px;
 }
 
+/* Modal Header */
 .detail-modal .modal-header {
   background-color: rgb(240, 255, 250);
-  color: white;
+  color: black;
   padding: 10px;
+  text-align: center;
 }
 
 .detail-modal .modal-header h2 {
-  color: black;
   font-size: 24px;
-  text-align: center;
   width: 100%;
 }
 
 .detail-modal .btn-close {
   background-color: rgb(0, 255, 170);
+  color: whitesmoke;
   width: 40px;
   height: 40px;
-  color: whitesmoke;
   position: absolute;
   right: -20px;
   cursor: pointer;
 }
 
-.detail-modal > .modal-body h4 {
+/* Modal Body Content */
+.detail-modal .modal-body h4 {
   font-size: 20px;
 }
 
@@ -41,6 +42,7 @@
   margin-bottom: 15px;
 }
 
+/* Room Features Layout */
 #roomFeatures {
   display: flex;
   flex-wrap: wrap;
@@ -68,12 +70,12 @@
 }
 
 .facility-card span {
+  width: 100%;
+  padding: 5px;
+  background-color: aquamarine;
   white-space: pre;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding: 5px;
-  width: 100%;
-  background-color: aquamarine;
 }
 
 .facility-card img {
@@ -91,11 +93,186 @@
     width: 100%;
   }
 
-  .detail-modal > .modal-body {
+  .detail-modal .modal-body {
     padding: 10px;
   }
 
-  .detail-modal > .modal-dialog {
+  .detail-modal .modal-dialog {
     max-width: 90%;
   }
+}
+
+.btn-custom {
+  padding: 12px 24px;
+  background-color: #ffcc00;
+  color: #333;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px #d1a800;
+  transition: all 0.2s ease;
+  margin: 10px 0;
+  width: 100%;
+}
+
+.btn-custom:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px #d1a800;
+}
+
+.btn-custom:hover {
+  background-color: #ffd633;
+  color: #222;
+  box-shadow: 0 6px #b98f00;
+}
+
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.banner h1 {
+  font-size: 3.5rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+  letter-spacing: 1.5px;
+  line-height: 1.2;
+}
+
+.banner p {
+  font-size: 1.5rem;
+  color: #f9f9f9;
+  font-weight: 300;
+  text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.6);
+  margin-top: 10px;
+}
+
+.banner h1 span {
+  padding: 0 10px;
+  border-radius: 5px;
+}
+
+header h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #333;
+  text-shadow: none;
+}
+
+header .navbar a {
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 5px 10px;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+header .navbar a:hover {
+  color: #333;
+  background-color: rgba(255, 255, 255, 0.8);
+  font-weight: bold;
+}
+
+.reservation .container {
+  max-width: 1000px;
+  background-color: #fff;
+  border: 2px solid #f0f0f0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  margin: 0 auto;
+}
+
+.reservation h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.reservation form .form-control,
+.reservation form .form-select {
+  border-radius: 4px;
+}
+
+.reservation button {
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Common styling */
+.icon-spacing {
+  margin-right: 8px;
+  font-size: 1.2em;
+  color: #007bff; /* Icon color */
+}
+
+.feature-item, .facility-item {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f8f9fa; /* Light background */
+  color: #333;
+}
+
+/* Feature section styles */
+#roomFeatures {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.feature-item {
+  flex: 1 1 48%;
+}
+
+/* Facility section styles */
+#roomFacilities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.facility-card {
+  position: relative;
+  overflow: hidden;
+  padding: 15px;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.facility-card:hover {
+  transform: scale(1.05);
+}
+
+.facility-container {
+  text-align: center;
+}
+
+.facility-container span {
+  display: block;
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 5px;
+}
+
+.facility-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.form-select option[disabled] {
+  display: none;
 }

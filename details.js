@@ -1,4 +1,4 @@
-// Icons for room features
+// Icons for room features 
 const featureIcons = {
   Adult: "fas fa-user",
   Child: "fas fa-child",
@@ -38,50 +38,39 @@ const facilityImages = {
     "https://restinn.webinane.com/wp-content/uploads/2017/08/wsi-imageoptim-8-1.jpg",
 };
 
-// Function to render room features with icons
+// Function to render room features with icons and updated styling
 function renderFeaturelItem(featureArray) {
   const featureContainer = document.getElementById("roomFeatures");
   featureContainer.innerHTML = ""; // Clear existing content
 
-  // Create an array to hold the features in order
   const orderedFeatures = [];
 
-  // Map beds, adults, children from the featureArray
   if (featureArray[0] > 0) {
-    orderedFeatures.push(
-      `${featureArray[0]} Bed${featureArray[0] > 1 ? "s" : ""}`
-    );
+    orderedFeatures.push(`${featureArray[0]} Bed${featureArray[0] > 1 ? "s" : ""}`);
   }
   if (featureArray[1] > 0) {
-    orderedFeatures.push(
-      `${featureArray[1]} Adult${featureArray[1] > 1 ? "s" : ""}`
-    );
+    orderedFeatures.push(`${featureArray[1]} Adult${featureArray[1] > 1 ? "s" : ""}`);
   }
   if (featureArray[2] > 0) {
-    orderedFeatures.push(
-      `${featureArray[2]} Child${featureArray[2] > 1 ? "ren" : ""}`
-    );
+    orderedFeatures.push(`${featureArray[2]} Child${featureArray[2] > 1 ? "ren" : ""}`);
   }
 
-  // Append any other features from the featureArray
   if (featureArray.length > 3) {
-    const otherFeatures = featureArray.slice(3);
-    orderedFeatures.push(...otherFeatures);
+    orderedFeatures.push(...featureArray.slice(3));
   }
 
-  // Render the features with icons
   orderedFeatures.forEach((feature) => {
     const key = Object.keys(featureIcons).find((key) => feature.includes(key));
-    const iconClass = featureIcons[key] || ""; // Get corresponding icon class
+    const iconClass = featureIcons[key] || "";
 
-    // Create the HTML structure for the feature with icon
     const featureDiv = document.createElement("div");
+    featureDiv.classList.add("feature-item");
     featureDiv.innerHTML = `<i class="${iconClass} icon-spacing"></i> ${feature}`;
     featureContainer.appendChild(featureDiv);
   });
 }
 
-// Function to render room facilities with images and icons
+// Function to render room facilities with images, icons, and updated styling
 function renderFacilityItem(facilitysArray) {
   const facilityContainer = document.getElementById("roomFacilities");
   facilityContainer.innerHTML = ""; // Clear existing facilities
@@ -90,18 +79,15 @@ function renderFacilityItem(facilitysArray) {
     const facilityDiv = document.createElement("div");
     facilityDiv.classList.add("col-md-3", "facility-card");
 
-    // Get the corresponding image URL and icon class from the mappings
     const imgSrc = facilityImages[facility] || null;
     const iconClass = facilityIcons[facility] || "";
 
     facilityDiv.innerHTML = `
-              <div class="facility-container">
-                  <div class="facility-card">
-                      <span><i class="${iconClass} icon-spacing"></i>${facility}</span>
-                      <img src="${imgSrc}" alt="${facility}" class="img-fluid">
-                  </div>
-              </div>
-          `;
+      <div class="facility-container">
+        <span><i class="${iconClass} icon-spacing"></i>${facility}</span>
+        <img src="${imgSrc}" alt="${facility}" class="img-fluid">
+      </div>
+    `;
 
     facilityContainer.appendChild(facilityDiv);
   });
@@ -110,16 +96,13 @@ function renderFacilityItem(facilitysArray) {
 // Function to fetch room data by room_id
 async function fetchRoomDetails(roomId) {
   try {
-    // Fetch data from API
     const response = await fetch(`${roomAPI}/${roomId}`);
     const data = await response.json();
 
-    // Update modal content dynamically
     document.getElementById("roomType").textContent = data.room_type || "Room";
     document.getElementById("roomDescription").textContent =
       data.description || "No description available";
 
-    // Render room features
     renderFeaturelItem([
       data.beds,
       data.max_adults,
@@ -127,13 +110,9 @@ async function fetchRoomDetails(roomId) {
       ...data.features,
     ]);
 
-    // Render room facilities
     renderFacilityItem(data.facilities);
 
-    // Show the content on the modal for room features
-    const modal = new bootstrap.Modal(
-      document.getElementById("roomDetailModal")
-    );
+    const modal = new bootstrap.Modal(document.getElementById("roomDetailModal"));
     modal.show();
   } catch (error) {
     console.error("Error fetching room features:", error);

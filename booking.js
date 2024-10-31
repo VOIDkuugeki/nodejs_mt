@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const roomInfoContainer = document.getElementById("roomInfo");
     roomInfoContainer.innerHTML = `
       <h5><strong>${room.room_type}</strong></h5>
-      <p>${room.beds} Bed(s), ${room.max_adults} Adult(s), ${room.max_children} Child(ren)</p>
+      <p>${room.beds} Bed(s), ${room.max_adults} Adult(s), ${room.max_children} Children(s)</p>
       <p>With ${room.features.join(", ")}</p>
     `;
   }
