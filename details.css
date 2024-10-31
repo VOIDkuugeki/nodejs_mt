@@ -1,0 +1,101 @@
+/* Detail Modal */
+.detail-modal .modal-dialog {
+  max-width: 1000px;
+}
+
+.detail-modal .modal-header {
+  background-color: rgb(240, 255, 250);
+  color: white;
+  padding: 10px;
+}
+
+.detail-modal .modal-header h2 {
+  color: black;
+  font-size: 24px;
+  text-align: center;
+  width: 100%;
+}
+
+.detail-modal .btn-close {
+  background-color: rgb(0, 255, 170);
+  width: 40px;
+  height: 40px;
+  color: whitesmoke;
+  position: absolute;
+  right: -20px;
+  cursor: pointer;
+}
+
+.detail-modal > .modal-body h4 {
+  font-size: 20px;
+}
+
+.center-title {
+  text-align: center;
+  width: 100%;
+}
+
+#roomDescription,
+#roomFeatures,
+#roomFacilities {
+  margin-bottom: 15px;
+}
+
+#roomFeatures {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+#roomFeatures div {
+  margin: 5px;
+  display: flex;
+  align-items: center;
+}
+
+/* Facility Card Styles */
+#roomFacilities {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
+}
+
+.facility-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px 5px;
+}
+
+.facility-card span {
+  white-space: pre;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 5px;
+  width: 100%;
+  background-color: aquamarine;
+}
+
+.facility-card img {
+  width: 300px;
+  height: 200px;
+}
+
+.icon-spacing {
+  margin-right: 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .facility-card {
+    width: 100%;
+  }
+
+  .detail-modal > .modal-body {
+    padding: 10px;
+  }
+
+  .detail-modal > .modal-dialog {
+    max-width: 90%;
+  }
+}
