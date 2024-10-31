@@ -206,7 +206,7 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .then((data) => {
         // Once the customer info is saved, proceed to save billing info
-        billingInfo.customerId = data.id; // Attach the customerId to the billing info
+        billingInfo.id = data.id; // Attach the customerId to the billing info
 
         // Post billing info to the billing API
         return fetch(billAPI, {
